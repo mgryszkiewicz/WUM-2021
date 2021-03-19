@@ -201,6 +201,7 @@ import requests
 df=requests.get("https://api.apispreadsheets.com/api/dataset/gender-voice/").json()
 from pandas import json_normalize 
 voice_df = json_normalize(df, 'data')
+voice_df.head()
 ```
 ### Objasnienie danych zawartych w ramce
 - meanfreq - srednia czestotliwosc (w kHz)
@@ -245,6 +246,7 @@ sns.set(font_scale=2.5)
 fig, ax = plt.subplots(figsize = (30, 25))
 sns.heatmap(round(abs(voice_df.corr()), 2), cmap="cividis", annot = True, vmin=0, vmax=1, linewidths=1, linecolor='white', annot_kws={"fontsize":20});
 plt.show()
+sns.set(font_scale=1)
 ```
 
 
@@ -255,6 +257,7 @@ g = sns.pairplot(voice_df[['sd', 'IQR', 'meanfun', 'Q25', 'label']], hue = 'labe
 g.map_lower(sns.kdeplot, levels=4, color=".2");
 plt.show()
 ```
+
 ### Ridgeploty dla dwóch zmiennych, których nie udalo nam sie zreprodukowac
 
 ```{python}
@@ -283,4 +286,5 @@ plt.show()
 ridgeplot(voice_df, "modindx")
 plt.show()
 ```
+
 ##### Jak widac zmienne te sa niemalże identyczne dla glosu żeńskiego jak i dla glosu meskiego. Oznacza to, że w przyszlosci bedziemy mogli je pominac w naszym modelu, bez znaczacego wplywu na jego zdolnosci predykcyjne.
