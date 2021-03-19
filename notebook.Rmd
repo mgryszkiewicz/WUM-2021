@@ -198,8 +198,9 @@ import requests
 ### Wczytanie ramki danych, wywolanie head()
 
 ```{python echo=TRUE}
-voice_df = pd.read_csv("gender_voice_dataset.csv")
-voice_df.head()
+df=requests.get("https://api.apispreadsheets.com/api/dataset/gender-voice/").json()
+from pandas import json_normalize 
+voice_df = json_normalize(df, 'data')
 ```
 ### Objasnienie danych zawartych w ramce
 - meanfreq - srednia czestotliwosc (w kHz)
